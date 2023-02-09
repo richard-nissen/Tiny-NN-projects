@@ -83,3 +83,61 @@ Where the black line represents people that do not have diabetes and the dashed 
 Looking at this plot I can quickly find features that seems to be the same for both outcome classes. The closer the lines are to each other, the less likely it is that the feature is a good predictor of the outcome. The further apart the lines are, the more likely it is that the feature is a good predictor of the outcome. It looks like people with fewer pregnancies are less likely to have diabetes. It also looks like people with higher glucose levels are more likely to have diabetes. It also looks like people with higher blood pressure are more likely to have diabetes. Blood preassure and skin thickness seem to be the same for both outcome classes. It also looks like people with higher insulin levels and higher BMI are more likely to have diabetes. Finally Age also seems to be a good predictor of the outcome, as people with higher age are more likely to have diabetes.
 
 ## Data Preprocessing
+In our EDA we found that there are potentially missing values in the dataset. To find these I will start by looking at which features have missing values.
+```python
+print(df.isnull().any())
+```
+```
+Pregnancies                 False
+Glucose                     False
+BloodPressure               False
+SkinThickness               False
+Insulin                     False
+BMI                         False
+DiabetesPedigreeFunction    False
+Age                         False
+Outcome                     False
+dtype: bool
+```
+It looks like there are no missing values in the dataset. However, we found that there are a lot of zero values in the dataset. To investigate further I will look at the statistical summary of the dataset.
+```python
+print(df.describe())
+```
+```
+       Pregnancies     Glucose  BloodPressure  SkinThickness     Insulin  \
+count   768.000000  768.000000     768.000000     768.000000  768.000000
+mean      3.845052  120.894531      69.105469      20.536458   79.799479
+std       3.369578   31.972618      19.355807      15.952218  115.244002
+min       0.000000    0.000000       0.000000       0.000000    0.000000
+25%       1.000000   99.000000      62.000000       0.000000    0.000000
+50%       3.000000  117.000000      72.000000      23.000000   30.500000
+75%       6.000000  140.250000      80.000000      32.000000  127.250000
+max      17.000000  199.000000     122.000000      99.000000  846.000000
+
+              BMI  DiabetesPedigreeFunction         Age     Outcome
+count  768.000000                768.000000  768.000000  768.000000
+mean    31.992578                  0.471876   33.240885    0.348958
+std      7.884160                  0.331329   11.760232    0.476951
+min      0.000000                  0.078000   21.000000    0.000000
+25%     27.300000                  0.243750   24.000000    0.000000
+50%     32.000000                  0.372500   29.000000    0.000000
+75%     36.600000                  0.626250   41.000000    1.000000
+max     67.100000                  2.420000   81.000000    1.000000
+```
+We know that for Glucose, BloodPressure, SkinThickness, Insulin and BMI, a value of zero does not make sense. So we need to treat these values as missing values. To see how many instances have a zero value for these features I will go through each feature and count the number of instances that have a zero value.
+```python
+# Goes through each feature and counts the number of instances that have a zero value
+for feature in ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']:
+    print(feature, len(df.loc[df[feature] == 0]))
+```
+```
+       Pregnancies     Glucose  BloodPressure  SkinThickness     Insulin         BMI  DiabetesPedigreeFunction         Age     Outcome
+count   768.000000  768.000000     768.000000     768.000000  768.000000  768.000000                768.000000  768.000000  768.000000
+mean      3.845052  120.894531      69.105469      20.536458   79.799479   31.992578                  0.471876   33.240885    0.348958
+std       3.369578   31.972618      19.355807      15.952218  115.244002    7.884160                  0.331329   11.760232    0.476951
+min       0.000000    0.000000       0.000000       0.000000    0.000000    0.000000                  0.078000   21.000000    0.000000
+25%       1.000000   99.000000      62.000000       0.000000    0.000000   27.300000                  0.243750   24.000000    0.000000
+50%       3.000000  117.000000      72.000000      23.000000   30.500000   32.000000                  0.372500   29.000000    0.000000
+75%       6.000000  140.250000      80.000000      32.000000  127.250000   36.600000                  0.626250   41.000000    1.000000
+max      17.000000  199.000000     122.000000      99.000000  846.000000   67.100000                  2.420000   81.000000    1.000000
+```

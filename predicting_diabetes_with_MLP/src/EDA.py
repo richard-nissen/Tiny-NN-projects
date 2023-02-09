@@ -41,3 +41,11 @@ plt.subplot(3, 3, 9).set_visible(False)
 plt.show()
 """
 
+# Data Preprocessing
+
+# First I want to check if there are any missing values
+print(df.isnull().any())
+
+# It says that there are no missing values, but in our EDA we saw that there were some 0 values in the Glucose, BloodPressure, SkinThickness, Insulin, and BMI columns so let's look at the statistical summary of the data set
+
+print(df.describe())
