@@ -76,6 +76,7 @@ plt.subplot(3, 3, 9).set_visible(False)
 
 plt.show()
 ```
+Note that the distplot function is deprecated in the latest version of seaborn. I am using an older version of seaborn, so I am using the distplot function. The new function is called kdeplot.
 ![feature_outcome](figures/sns_feature_outcome.png)
 Where the black line represents people that do not have diabetes and the dashed black line represents people that do have diabetes.
 
