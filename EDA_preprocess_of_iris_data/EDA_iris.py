@@ -27,16 +27,13 @@ for i, species in enumerate(df['target'].unique()):
                               title = 'Sepal Width vs Length by Species',
                               label = species, figsize=(10,7), ax=ax)
 
-plt.savefig('figures/sepal_width_vs_length_by_species.png')
 plt.show()
 
 
 df['petal length'].plot.hist(title = 'Petal Length Histogram')
 
-plt.savefig('figures/petal_length_histogram.png')
 plt.show()
 
 df.plot.box(title = 'Boxplot of Sepal Length & Width, and Petal Length & Width')
 
-plt.savefig('figures/boxplot_of_sepal_length_width_and_petal_length_width.png')
 plt.show()
