@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 URL = "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
 df = pd.read_csv(URL, names=['sepal length','sepal width','petal length','petal width','target'])
 
+# Find missing values
+print("Missing values : \n{}".format(df.isnull().any()))
+
 # Delete the sepal length feature from 10 random rows
 df.loc[np.random.choice(df.index, 10), 'sepal length'] = None
 
