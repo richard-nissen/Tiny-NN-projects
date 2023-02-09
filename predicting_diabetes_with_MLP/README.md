@@ -117,6 +117,13 @@ max      17.000000  199.000000     122.000000      99.000000  846.000000   67.10
 We know that for Glucose, BloodPressure, SkinThickness, Insulin and BMI, a value of zero does not make sense. So we need to treat these values as missing values. To see how many instances have a zero value for these features I will go through each feature and count the number of instances that have a zero value.
 ```python
 # Goes through each feature and counts the number of instances that have a zero value
-for feature in ['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']:
-    print(feature, len(df.loc[df[feature] == 0]))
+print((df[['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']] == 0).sum())
+```
+```
+Glucose            5
+BloodPressure     35
+SkinThickness    227
+Insulin          374
+BMI               11
+dtype: int64
 ```

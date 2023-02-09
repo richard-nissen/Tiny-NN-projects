@@ -49,3 +49,6 @@ print(df.isnull().any())
 # It says that there are no missing values, but in our EDA we saw that there were some 0 values in the Glucose, BloodPressure, SkinThickness, Insulin, and BMI columns so let's look at the statistical summary of the data set
 
 print(df.describe())
+
+# Count the number of 0 values in each
+print((df[['Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI']] == 0).sum())
